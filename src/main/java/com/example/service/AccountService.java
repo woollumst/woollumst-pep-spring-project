@@ -11,6 +11,7 @@ import com.example.exception.*;
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
+    List<Account> accounts;
     
     @Autowired
     public AccountService(AccountRepository accountRepository){
@@ -28,12 +29,14 @@ public class AccountService {
             throw new ClientException("Username can't be blank, password must be at least 4 characters long.");
         return accountRepository.save(newAcc); 
     }
-    /*
+    
     //login to account
     public Account loginAccount(Account qAccount){
-        return accountRepository.loginAccount(qAccount);
+        if(!accountRepository.existsByUsername(qAccount.getUsername()))
+            throw new UnauthorizedException("Invalid username/password!");
+        return accountRepository.getAccountByUsernameAndPassword(qAccount.getUsername(), qAccount.getPassword());
     }
-*/
+
     //get all accounts?
     public List<Account> getAllAcc(){
         return accountRepository.findAll();

@@ -7,6 +7,9 @@ import com.example.entity.*;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer>{ //used to be interface?
     boolean existsByUsername(String username);
+    boolean existsByPassword(String password);
+    boolean existsByUsernameAndPassword(String username, String password);
+    Account getAccountByUsernameAndPassword(String username, String password);
     /*    public Account registerAccount(Account newAcc){
         //logic
         return newAcc;

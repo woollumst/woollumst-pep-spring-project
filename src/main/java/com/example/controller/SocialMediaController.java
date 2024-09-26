@@ -33,13 +33,14 @@ public class SocialMediaController {
         newAcc = accountService.registerAccount(newAcc);
         return ResponseEntity.status(200).body(newAcc);
     }
-/*
+
     //login
     @PostMapping("login")
-    public ResponseEntity<Account> login(){
-
+    public ResponseEntity<Account> login(@RequestBody Account qAccount){
+        qAccount = accountService.loginAccount(qAccount);
+        return ResponseEntity.status(200).body(qAccount);
     }
-
+/*
     //create new message
     @PostMapping("messages")
     public ResponseEntity<Message> createMessage(){
@@ -85,7 +86,7 @@ public class SocialMediaController {
    //401 Unauthorized - Login unsuccessful
    @ExceptionHandler(UnauthorizedException.class)
    public ResponseEntity<String> UnauthorizedException(ClientException ex){
-       return ResponseEntity.status(400).body(ex.getMessage());
+       return ResponseEntity.status(401).body(ex.getMessage());
    }
    //400 Client Error - registration unsuccessful any other reason
    // message creation unsuccessful, update unsuccessful
