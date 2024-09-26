@@ -40,19 +40,21 @@ public class SocialMediaController {
         qAccount = accountService.loginAccount(qAccount);
         return ResponseEntity.status(200).body(qAccount);
     }
-/*
+
     //create new message
     @PostMapping("messages")
-    public ResponseEntity<Message> createMessage(){
-
+    public ResponseEntity<Message> createMessage(@RequestBody Message message){
+        message = messageService.createMessage(message);
+        return ResponseEntity.status(200).body(message);
     }
 
     //get all messages
     @GetMapping("messages")
-    public ResponseEntity<Message[]> getAllMessages(){
-
+    public ResponseEntity<List<Message>> getAllMessages(){
+        List<Message> messages = messageService.getAllMessages();
+        return ResponseEntity.status(200).body(messages);
     }
-
+/*
     //get message by ID 
     @GetMapping("messages/{messageId}")
     public ResponseEntity<Message> getMessageByID(){

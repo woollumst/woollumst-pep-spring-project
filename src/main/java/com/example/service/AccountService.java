@@ -37,6 +37,10 @@ public class AccountService {
         return accountRepository.getAccountByUsernameAndPassword(qAccount.getUsername(), qAccount.getPassword());
     }
 
+    public boolean checkUserInDB(int accID){
+        return accountRepository.existsById(accID);
+    }
+
     //get all accounts?
     public List<Account> getAllAcc(){
         return accountRepository.findAll();
