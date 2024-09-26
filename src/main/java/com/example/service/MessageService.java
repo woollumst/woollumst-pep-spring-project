@@ -28,6 +28,7 @@ public class MessageService {
     public List<Message> getAllMessages(){
         return messageRepository.findAll();
     }
+    /*
     public Message getMessageByID(int msgID){
         Optional<Message> message;
         message = messageRepository.findById(msgID);
@@ -48,7 +49,7 @@ public class MessageService {
     public boolean existsById(int msgId){
         return messageRepository.existsById(msgId);
     }
-    
+ 
     //update by message ID
     public Message updateMsgByID(int msgID, String msgText){
         return messageRepository.saveByMessageIdAndMessageText(msgID, msgText);
@@ -56,5 +57,5 @@ public class MessageService {
     //get all msgs by acc ID
     public List<Message> getAllAccMsgs(int accID){
         return messageRepository.findAllByPostedBy(accID);
-    }
+    }*/
 }

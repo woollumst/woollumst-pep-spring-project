@@ -53,7 +53,7 @@ public class SocialMediaController {
         List<Message> messages = messageService.getAllMessages();
         return ResponseEntity.status(200).body(messages);
     }
-
+/*
     //get message by ID 
     @GetMapping("messages/{messageId}")
     public ResponseEntity<Message> getMessageByID(@PathVariable int msgId){
@@ -85,7 +85,7 @@ public class SocialMediaController {
         List<Message> messages = messageService.getAllAccMsgs(accId);
         return ResponseEntity.status(200).body(messages);
     }
-
+*/
     //Error Handling
    // 409 CONFLICT - duplicate username detected
    @ExceptionHandler(ConflictException.class)
