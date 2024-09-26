@@ -20,7 +20,6 @@ import com.example.exception.*;
 public class SocialMediaController {
     private final AccountService accountService;
     private final MessageService messageService;
-    private List<Account> accounts;
 
     @Autowired
     public SocialMediaController(AccountService accountService, MessageService messageService){
@@ -31,14 +30,6 @@ public class SocialMediaController {
     //register
     @PostMapping("register")
     public ResponseEntity<Account> register(@RequestBody Account newAcc){
-/*        accounts = accountService.getAllAcc();
-        for(Account acc : accounts){
-            if (acc.getUsername() == newAcc.getUsername()){
-                throw new ConflictException("Duplicate username detected! Please try again.");
-                //throw 409 error, error handling bottom of page
-            }
-        }*/
-
         newAcc = accountService.registerAccount(newAcc);
         return ResponseEntity.status(200).body(newAcc);
     }
@@ -92,8 +83,14 @@ public class SocialMediaController {
         return ResponseEntity.status(409).body(ex.getMessage());
     }
    //401 Unauthorized - Login unsuccessful
-   
+   @ExceptionHandler(UnauthorizedException.class)
+   public ResponseEntity<String> UnauthorizedException(ClientException ex){
+       return ResponseEntity.status(400).body(ex.getMessage());
+   }
    //400 Client Error - registration unsuccessful any other reason
    // message creation unsuccessful, update unsuccessful
-
+    @ExceptionHandler(ClientException.class)
+    public ResponseEntity<String> ClientException(ClientException ex){
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
 }

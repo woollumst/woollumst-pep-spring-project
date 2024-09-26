@@ -24,6 +24,8 @@ public class AccountService {
         if(accountRepository.existsByUsername(newAcc.getUsername())){
             throw new ConflictException("Duplicate username detected!");
         }
+        else if(newAcc.getPassword().length() < 4 || newAcc.getUsername().length() <= 1)
+            throw new ClientException("Username can't be blank, password must be at least 4 characters long.");
         return accountRepository.save(newAcc); 
     }
     /*
