@@ -1,7 +1,6 @@
 package com.example.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.entity.Account;
@@ -12,15 +11,11 @@ import com.example.exception.*;
 public class AccountService {
     private final AccountRepository accountRepository;
     List<Account> accounts;
-    
     @Autowired
     public AccountService(AccountRepository accountRepository){
         this.accountRepository = accountRepository;
     }
-
     //account service methods below
-    //register account
-   
     public Account registerAccount(Account newAcc){
         if(accountRepository.existsByUsername(newAcc.getUsername())){
             throw new ConflictException("Duplicate username detected!");
@@ -29,19 +24,20 @@ public class AccountService {
             throw new ClientException("Username can't be blank, password must be at least 4 characters long.");
         return accountRepository.save(newAcc); 
     }
-    
-    //login to account
     public Account loginAccount(Account qAccount){
-        if(!accountRepository.existsByUsername(qAccount.getUsername()))
-            throw new UnauthorizedException("Invalid username/password!");
+        if(!(accountRepository.existsByUsername(qAccount.getUsername()))){
+            throw new UnauthorizedException("Invalid username!");
+        }
+        else {
+            Account sampleAcc = accountRepository.findByUsername(qAccount.getUsername());
+            if(qAccount.getPassword() != sampleAcc.getPassword())
+                throw new UnauthorizedException("Invalid password!");
+        }
         return accountRepository.getAccountByUsernameAndPassword(qAccount.getUsername(), qAccount.getPassword());
     }
-
     public boolean checkUserInDB(int accID){
         return accountRepository.existsById(accID);
     }
-
-    //get all accounts?
     public List<Account> getAllAcc(){
         return accountRepository.findAll();
     }
