@@ -7,22 +7,17 @@ import com.example.repository.MessageRepository;
 
 @Service
 public class MessageService {
-    private MessageService messageService;
-    @Autowired
-    private MessageRepository messageRepository;
-
-    public MessageService(){
-        messageService = new MessageService();
-    }
+    private final MessageRepository messageRepository;
     
-    public MessageService(MessageService messageService){
-        this.messageService = messageService;
+    @Autowired
+    public MessageService(MessageRepository messageRepository){
+        this.messageRepository = messageRepository;
     }
-
+/*
     //Message service methods below
     //create new message
     public Message createMessage(Message message){
-        return messageRepository.createMessage(message);
+        return messageRepository.save(message);
     }
 
     //get all msgs
@@ -45,5 +40,5 @@ public class MessageService {
     //get all msgs by acc ID
     public Message[] getAllAccMsgs(int accID){
         return messageRepository.getAllAccMsgs(accID);
-    }
+    } */
 }

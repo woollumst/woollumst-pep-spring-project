@@ -1,12 +1,13 @@
 package com.example.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.entity.Account;
-import java.util.*;
+import com.example.entity.*;
 
 @Repository
-public class AccountRepository { //used to be interface?
-    public Account registerAccount(Account newAcc){
+public interface AccountRepository extends JpaRepository<Account, Integer>{ //used to be interface?
+    boolean existsByUsername(String username);
+    /*    public Account registerAccount(Account newAcc){
         //logic
         return newAcc;
     }
@@ -23,5 +24,5 @@ public class AccountRepository { //used to be interface?
 
         return accounts;
     }
-
+*/
 }

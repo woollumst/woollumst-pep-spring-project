@@ -1,11 +1,11 @@
 package com.example.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.example.entity.Message;
-
+import com.example.entity.*;
 @Repository
-public class MessageRepository { //used to be interface?
+public interface MessageRepository extends JpaRepository<Message, Integer> { //used to be interface?
+/* 
     public Message createMessage(Message message){
         //logic 
         return message;
@@ -35,4 +35,5 @@ public class MessageRepository { //used to be interface?
         //logic
         return null;
     }
+*/
 }

@@ -2,11 +2,12 @@ package com.example.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.entity.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import com.example.service.*;
-import java.util.*;
+import com.example.entity.*;
+import java.util.List;
+import com.example.exception.*;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
@@ -17,23 +18,27 @@ import java.util.*;
 
  @RestController
 public class SocialMediaController {
-    @Autowired
-    AccountService accountService;
-    @Autowired
-    MessageService messageService;
+    private final AccountService accountService;
+    private final MessageService messageService;
+    private List<Account> accounts;
 
-    private List<Account> accounts = accountService.getAllAcc();
+    @Autowired
+    public SocialMediaController(AccountService accountService, MessageService messageService){
+        this.accountService = accountService;
+        this.messageService = messageService;
+    }
 
     //register
-    @Autowired
     @PostMapping("register")
     public ResponseEntity<Account> register(@RequestBody Account newAcc){
+/*        accounts = accountService.getAllAcc();
         for(Account acc : accounts){
             if (acc.getUsername() == newAcc.getUsername()){
-                //throw new CustomException("Email was not found, check email and try again.");
+                throw new ConflictException("Duplicate username detected! Please try again.");
                 //throw 409 error, error handling bottom of page
             }
-        }
+        }*/
+
         newAcc = accountService.registerAccount(newAcc);
         return ResponseEntity.status(200).body(newAcc);
     }
@@ -79,13 +84,16 @@ public class SocialMediaController {
     public ResponseEntity<Message[]> getAccountMessages(){
         
     }
-
+*/
     //Error Handling ?
    // 409 CONFLICT - duplicate username detected
-
+   @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<String> ConflictException(ConflictException ex){
+        return ResponseEntity.status(409).body(ex.getMessage());
+    }
    //401 Unauthorized - Login unsuccessful
    
    //400 Client Error - registration unsuccessful any other reason
    // message creation unsuccessful, update unsuccessful
-*/
+
 }
