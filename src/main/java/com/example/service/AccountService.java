@@ -25,15 +25,11 @@ public class AccountService {
         return accountRepository.save(newAcc); 
     }
     public Account loginAccount(Account qAccount){
-        if(!(accountRepository.existsByUsername(qAccount.getUsername()))){
-            throw new UnauthorizedException("Invalid username!");
+        if (accountRepository.existsByUsernameAndPassword(qAccount.getUsername(), qAccount.getPassword())){
+            return accountRepository.findByUsernameAndPassword(qAccount.getUsername(), qAccount.getPassword());
         }
-        else {
-            Account sampleAcc = accountRepository.findByUsername(qAccount.getUsername());
-            if(qAccount.getPassword() != sampleAcc.getPassword())
-                throw new UnauthorizedException("Invalid password!");
-        }
-        return accountRepository.findByUsername(qAccount.getUsername());
+        else
+            throw new UnauthorizedException("Invalid username/password");
     }
     public boolean checkUserInDB(int accID){
         return accountRepository.existsById(accID);
