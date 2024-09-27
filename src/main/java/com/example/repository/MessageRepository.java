@@ -11,5 +11,5 @@ public interface MessageRepository extends JpaRepository<Message, Integer> { //u
     Message findBymessageId(int messageId);
     boolean existsByMessageId(int messageId);
     //Message saveByMessageIdAndMessageText(int messageId, String messageText); //errored out
-    List<Message> findAllByPostedBy(int postedBy);
+    List<Message> findAllBypostedBy(int postedBy);
 }

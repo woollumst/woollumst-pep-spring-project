@@ -71,21 +71,21 @@ public class SocialMediaController {
         else
             return ResponseEntity.status(200).build();
     }
-/*
+
     //Update message text by message ID
     @PatchMapping("messages/{messageId}")
-    public ResponseEntity<Message> updateMessage(@PathVariable int messageId, @RequestBody String messageText){
-        Message message = messageService.updateMsgByID(messageId, messageText);
-        return ResponseEntity.status(200).body(message);
+    public ResponseEntity<Integer> updateMessage(@PathVariable int messageId, @RequestBody Message inMessage){
+        Message message = messageService.updateMsgByID(messageId, inMessage.getMessageText());
+        return ResponseEntity.status(200).body(1);
     }
 
     //get all messages of particular user (by account ID)
     @GetMapping("accounts/{accountId}/messages")
-    public ResponseEntity<List<Message>> getAccountMessages(@PathVariable int accId){
-        List<Message> messages = messageService.getAllAccMsgs(accId);
+    public ResponseEntity<List<Message>> getAccountMessages(@PathVariable int accountId){
+        List<Message> messages = messageService.getAllAccMsgs(accountId);
         return ResponseEntity.status(200).body(messages);
     }
-*/
+
     //Error Handling
    // 409 CONFLICT - duplicate username detected
    @ExceptionHandler(ConflictException.class)

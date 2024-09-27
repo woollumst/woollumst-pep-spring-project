@@ -45,13 +45,20 @@ public class MessageService {
     public boolean existsById(int msgId){
         return messageRepository.existsById(msgId);
     }
- /*
+ 
     //update by message ID
-    public Message updateMsgByID(int msgID, String msgText){
-        return messageRepository.saveByMessageIdAndMessageText(msgID, msgText);
+    public Message updateMsgByID(int messageId, String messageText){
+        if(!(messageText.length() > 1 && messageText.length() <= 255) || !messageRepository.existsByMessageId(messageId)){
+            throw new ClientException("Message Update failed!");
+        }
+        else{
+            Message message = messageRepository.findBymessageId(messageId);
+            message.setMessageText(messageText);
+            return messageRepository.save(message);
+        }
     }
     //get all msgs by acc ID
-    public List<Message> getAllAccMsgs(int accID){
-        return messageRepository.findAllByPostedBy(accID);
-    }*/
+    public List<Message> getAllAccMsgs(int postedBy){
+        return messageRepository.findAllBypostedBy(postedBy);
+    }
 }
