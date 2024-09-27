@@ -6,6 +6,7 @@ import com.example.entity.Message;
 import com.example.exception.ClientException;
 import com.example.repository.MessageRepository;
 import java.util.*;
+import javax.transaction.Transactional;
 
 @Service
 public class MessageService {
@@ -28,28 +29,23 @@ public class MessageService {
     public List<Message> getAllMessages(){
         return messageRepository.findAll();
     }
-    /*
+ 
     public Message getMessageByID(int msgID){
-        Optional<Message> message;
-        message = messageRepository.findById(msgID);
-        if(message.isPresent())
-            return message.get();
-        else {
-            return null;
-        }
+        Message message = messageRepository.findBymessageId(msgID);
+        return message;
     }
+
     //delete msg by msg ID
-    public Integer deleteMsgById(int msgID){
+    @Transactional
+    public void deleteMsgById(int msgID){
         if(messageRepository.existsByMessageId(msgID)){
             messageRepository.deleteByMessageId(msgID);
-            return 1;
         }
-        return 0;
     }
     public boolean existsById(int msgId){
         return messageRepository.existsById(msgId);
     }
- 
+ /*
     //update by message ID
     public Message updateMsgByID(int msgID, String msgText){
         return messageRepository.saveByMessageIdAndMessageText(msgID, msgText);

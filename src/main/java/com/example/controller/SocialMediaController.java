@@ -53,25 +53,25 @@ public class SocialMediaController {
         List<Message> messages = messageService.getAllMessages();
         return ResponseEntity.status(200).body(messages);
     }
-/*
+
     //get message by ID 
     @GetMapping("messages/{messageId}")
-    public ResponseEntity<Message> getMessageByID(@PathVariable int msgId){
-        Message message = messageService.getMessageByID(msgId);
+    public ResponseEntity<Message> getMessageByID(@PathVariable int messageId){
+        Message message = messageService.getMessageByID(messageId);
         return ResponseEntity.status(200).body(message);
     }
 
     //delete message by ID 
     @DeleteMapping("messages/{messageId}")
     public ResponseEntity<Integer> deleteMessageByID(@PathVariable int messageId){
-        if(messageService.existsById(messageId)){
-            messageService.deleteMsgById(messageId);
+        Message message = messageService.getMessageByID(messageId);
+        messageService.deleteMsgById(messageId);
+        if(message != null)
             return ResponseEntity.status(200).body(1);
-        }
         else
             return ResponseEntity.status(200).build();
     }
-
+/*
     //Update message text by message ID
     @PatchMapping("messages/{messageId}")
     public ResponseEntity<Message> updateMessage(@PathVariable int messageId, @RequestBody String messageText){

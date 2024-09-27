@@ -33,7 +33,7 @@ public class AccountService {
             if(qAccount.getPassword() != sampleAcc.getPassword())
                 throw new UnauthorizedException("Invalid password!");
         }
-        return accountRepository.getAccountByUsernameAndPassword(qAccount.getUsername(), qAccount.getPassword());
+        return accountRepository.findByUsername(qAccount.getUsername());
     }
     public boolean checkUserInDB(int accID){
         return accountRepository.existsById(accID);
